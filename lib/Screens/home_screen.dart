@@ -26,8 +26,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     // Fetching screen width and height using MediaQuery
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -48,6 +46,7 @@ class _HomePageState extends State<HomePage> {
         showSelectedLabels: true,
         showUnselectedLabels: false,
         onTap: _onItemTapped,
+        backgroundColor: CColors.cardColor(context),
       ),
       body: PageView(
         controller: _pageController,
@@ -58,226 +57,235 @@ class _HomePageState extends State<HomePage> {
         },
         children: <Widget>[
           SingleChildScrollView(
-              child: Column(
-                children: [
-                  // top blue section
-                  Container(
-                    decoration: BoxDecoration(
-                      color: CColors.primaryColor(context),
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      ),
+            child: Column(
+              children: [
+                // top blue section
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          CColors.primaryColor(context)!.withOpacity(0.6),
+                          CColors.primaryColor(context)
+                        ]),
+                    color: CColors.primaryColor(context),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
                     ),
-                    height: screenHeight / 4,
-                    width: screenWidth,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(height: MediaQuery.of(context).padding.top/3,),
+                  ),
+                  height: screenHeight / 4,
+                  width: screenWidth,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).padding.top / 3,
+                        ),
 
-                          // SizedBox(height: screenWidth*0.2,),
-                          const Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              // SizedBox(height: screenWidth*0.2,),
-                              Icon(
-                                Icons.menu_sharp,
-                                color: Colors.white,
-                                size: 40,
-                              ),
+                        // SizedBox(height: screenWidth*0.2,),
+                        const Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            // SizedBox(height: screenWidth*0.2,),
+                            Icon(
+                              Icons.menu_sharp,
+                              color: Colors.white,
+                              size: 40,
+                            ),
 
-                              Expanded(
-                                child: Center(
-                                  child: Text(
-                                    "UrTripO",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w900,
-                                      color: Colors.white,
-                                      fontSize: 24,
-                                    ),
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  "UrTripO",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.white,
+                                    fontSize: 24,
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //Search Bar
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const SearchPage(),
-                                  ));
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: CColors.overlayColor(context),
-                                    borderRadius:
-                                        const BorderRadius.all(Radius.circular(16)),
-                                  ),
-                                  width: screenWidth * 0.9,
-                                  height: screenHeight * 0.08,
-                                  child: const Row(
-                                    children: [
-                                      SizedBox(width: 20),
-                                      Icon(
-                                        Icons.search_outlined,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            //Search Bar
+                            InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const SearchPage(),
+                                ));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: CColors.overlayColor(context)
+                                      .withOpacity(0.6),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(16)),
+                                ),
+                                width: screenWidth * 0.9,
+                                height: screenHeight * 0.07,
+                                child: const Row(
+                                  children: [
+                                    SizedBox(width: 20),
+                                    Icon(
+                                      Icons.search_outlined,
+                                      color: Colors.white,
+                                    ),
+                                    SizedBox(width: 20),
+                                    Text(
+                                      "Search",
+                                      style: TextStyle(
                                         color: Colors.white,
                                       ),
-                                      SizedBox(width: 20),
-                                      Text(
-                                        "Search",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
+                            ),
 
-                              // Filter Icon
+                            // Filter Icon
 
-                              // Container(
-                              //   decoration: const BoxDecoration(
-                              //     color: Colors.white,
-                              //     borderRadius:
-                              //         BorderRadius.all(Radius.circular(16)),
-                              //   ),
-                              //   width: screenWidth * 0.17,
-                              //   height: screenHeight * 0.08,
-                              //   child: Icon(
-                              //     Icons.filter_list,
-                              //     color: CColors.overlayColor(context),
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  // Image scroll section
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(5, (index) => imageTile(index)),
-                    ),
-                  ),
-
-                  // Best hotels section
-                  const Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Best Hotels",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 20,
-                          ),
-                        ),
-                        Text(
-                          "See all",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.blueAccent,
-                          ),
+                            // Container(
+                            //   decoration: const BoxDecoration(
+                            //     color: Colors.white,
+                            //     borderRadius:
+                            //         BorderRadius.all(Radius.circular(16)),
+                            //   ),
+                            //   width: screenWidth * 0.17,
+                            //   height: screenHeight * 0.08,
+                            //   child: Icon(
+                            //     Icons.filter_list,
+                            //     color: CColors.overlayColor(context),
+                            //   ),
+                            // ),
+                          ],
                         ),
                       ],
                     ),
                   ),
+                ),
 
-                  // Best Hotel cards section
-                  Column(
+                const SizedBox(
+                  height: 10,
+                ),
+                // Image scroll section
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(5, (index) => imageTile(index)),
+                  ),
+                ),
+
+                // Best hotels section
+                const Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: List.generate(
-                              5,
-                              (index) => HotelCardBig(
-                                imageUrl:
-                                    'assets/images/hotel${index + 1}.jpg', // Assuming image names like hotel1.jpg, hotel2.jpg, etc.
-                                title: 'Hotel ${index + 1}',
-                                location: 'Location ${index + 1}',
-                                price: 100 * (index + 1),
-                                rating: (index % 5) + 1.0,
-                                totalRatings: (index + 1) * 20,
-                              ),
-                            ),
-                          ),
+                      Text(
+                        "Best Hotels",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(
+                        "See all",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                          color: Colors.blueAccent,
                         ),
                       ),
                     ],
                   ),
+                ),
 
-                  //Nearby your locations
-                  const Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Hotels Nearby",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w900,
-                            fontSize: 20,
+                // Best Hotel cards section
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: List.generate(
+                            5,
+                            (index) => HotelCardBig(
+                              imageUrl:
+                                  'assets/images/hotel${index + 1}.jpg', // Assuming image names like hotel1.jpg, hotel2.jpg, etc.
+                              title: 'Hotel ${index + 1}',
+                              location: 'Location ${index + 1}',
+                              price: 100 * (index + 1),
+                              rating: (index % 5) + 1.0,
+                              totalRatings: (index + 1) * 20,
+                            ),
                           ),
                         ),
-                        Text(
-                          "See all",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.blueAccent,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ],
+                ),
 
-                  //Nearby Hotel Cards
-                  Row(
+                //Nearby your locations
+                const Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Column(
-                            children: List.generate(
-                              5,
-                              (index) => HotelCardSmall(
-                                imageUrl:
-                                    'assets/images/hotel${index + 1}.jpg',
-                                title: 'Hotel ${index + 1}',
-                                location: 'Location ${index + 1}',
-                                price: 100 * (index + 1),
-                                rating: (index % 5) + 1.0,
-                                totalRatings: (index + 1) * 20,
-                              ),
-                            ),
-                          ),
+                      Text(
+                        "Hotels Nearby",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Text(
+                        "See all",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                          color: Colors.blueAccent,
                         ),
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+
+                //Nearby Hotel Cards
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Column(
+                          children: List.generate(
+                            5,
+                            (index) => HotelCardSmall(
+                              imageUrl: 'assets/images/hotel${index + 1}.jpg',
+                              title: 'Hotel ${index + 1}',
+                              location: 'Location ${index + 1}',
+                              price: 100 * (index + 1),
+                              rating: (index % 5) + 1.0,
+                              totalRatings: (index + 1) * 20,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
+          ),
           const Center(child: Text('Favorites Page')),
           const ProfilePage(),
         ],

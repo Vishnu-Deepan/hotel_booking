@@ -81,7 +81,7 @@ class ProfilePage extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(profileImageSize /
-                          2), // Half the size to ensure circular shape
+                          2),
                       border: Border.all(
                         color: Colors.white,
                         width: 1.5,

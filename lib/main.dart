@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hotel_booking/themes/custom_colors.dart';
 import 'package:provider/provider.dart';
 import 'Screens/home_screen.dart';
 import 'themes/provider.dart';
@@ -11,8 +12,10 @@ void main() {
   ),);
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent, // Transparent status bar
-    statusBarIconBrightness: Brightness.dark, // Dark icons for status bar
+    systemNavigationBarColor: CColors.darkCard,
+    systemNavigationBarIconBrightness: Brightness.light,
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.light,
   ));
 }
 

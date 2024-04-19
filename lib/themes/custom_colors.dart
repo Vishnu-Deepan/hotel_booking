@@ -4,7 +4,7 @@ class CColors {
   // Define static constants for light theme colors
   static const Color lightPrimary = Color(0xff5565ff);
   static const Color lightSecondary = Colors.blueAccent;
-  static const Color lightOverlay = Color(0xff6472fa);
+  static const Color lightOverlay = Color(0xff8e96f7);
   static const Color lightCard = Colors.white;
   static Color? lightSearchBar = Colors.grey[100];
 
