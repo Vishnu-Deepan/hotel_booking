@@ -28,7 +28,7 @@ class HotelCardBig extends StatelessWidget {
 
     return Card(
       color: CColors.cardColor(context),
-      elevation: 1,
+      elevation: 0.4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),

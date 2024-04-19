@@ -25,7 +25,7 @@ class HotelCardSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: CColors.cardColor(context),
-      elevation: 1, // Added elevation for better depth perception
+      elevation: 0.4,
       margin: const EdgeInsets.all(8),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10), // Rounded corners for the card

@@ -124,10 +124,10 @@ class _ReviewsPageState extends State<ReviewsPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Text(
-                      "4.7",
-                      style: GoogleFonts.gafata(
+                      "3.7",
+                      style: GoogleFonts.hanuman(
                         fontWeight: FontWeight.w900,
-                        fontSize: 30,
+                        fontSize: 40,
                       ),
                     ),
                     Column(
@@ -151,9 +151,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
                     ),
                   ]),
             ),
-            const SizedBox(
-              height: 20,
-            ),
+
 
             //All Review Details
             SingleChildScrollView(

@@ -32,7 +32,7 @@ class ResultCard extends StatelessWidget {
       },
       child: Card(
         color: CColors.cardColor(context),
-        elevation: 1,
+        elevation: 0.4,
         margin: const EdgeInsets.all(8),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

@@ -23,6 +23,7 @@ class AppThemes {
     brightness: Brightness.light,
     primaryColor: CColors.lightPrimary,
     scaffoldBackgroundColor: Colors.white,
+    cardColor: CColors.lightCard,
   );
 
 
@@ -31,5 +32,6 @@ class AppThemes {
     brightness: Brightness.dark,
     primaryColor: CColors.darkPrimary,
     scaffoldBackgroundColor: const Color(0xff0b0c15),
+    cardColor: CColors.darkCard,
   );
 }

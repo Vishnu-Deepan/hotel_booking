@@ -7,11 +7,6 @@ import '../themes/provider.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
-  void toggleTheme(BuildContext context) {
-    // Implement theme toggle logic here
-    // This is just a placeholder function
-  }
-
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<ThemeProvider>(context, listen: false);
@@ -19,11 +14,13 @@ class ProfilePage extends StatelessWidget {
     // Fetching screen width and height using MediaQuery
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
+    final profileImageSize = screenWidth / 4;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: CColors.primaryColor(context),
+        backgroundColor: CColors.primaryColor(context).withOpacity(0.6),
         centerTitle: true,
+        elevation: 0,
         title: Text(
           'Profile Page',
           style: GoogleFonts.dangrek(
@@ -38,11 +35,26 @@ class ProfilePage extends StatelessWidget {
           // top blue section
           Container(
             decoration: BoxDecoration(
-              color: CColors.primaryColor(context),
+              gradient: LinearGradient(
+                colors: [
+                  CColors.primaryColor(context).withOpacity(0.6),
+                  CColors.primaryColor(context)
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(30),
                 bottomRight: Radius.circular(30),
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 10,
+                  offset: Offset(0, 3),
+                ),
+              ],
             ),
             height: screenHeight / 4.5,
             width: screenWidth,
@@ -53,15 +65,31 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   // Profile Image
                   Container(
-                    width: MediaQuery.of(context).size.width / 3,
-                    height: MediaQuery.of(context).size.height / 6,
+                    width: profileImageSize,
+                    height: profileImageSize,
                     decoration: BoxDecoration(
-                      image: const DecorationImage(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.15),
+                          blurRadius: 10,
+                          spreadRadius: 2,
+                          offset: Offset(4, 0),
+                        ),
+                      ],
+                      image: DecorationImage(
                         image: NetworkImage("https://i.pravatar.cc/56334846"),
                         fit: BoxFit.cover,
                       ),
-                      borderRadius: BorderRadius.circular(14),
+                      borderRadius: BorderRadius.circular(profileImageSize /
+                          2), // Half the size to ensure circular shape
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 1.5,
+                      ),
                     ),
+                  ),
+                  SizedBox(
+                    width: 10,
                   ),
 
                   // Name, Email
@@ -82,9 +110,7 @@ class ProfilePage extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                           ),
-                          const SizedBox(
-                            height: 5,
-                          ),
+                          const SizedBox(height: 5),
                           Text(
                             "vishnudeepanp@gmail.com",
                             style: GoogleFonts.manrope(
@@ -93,12 +119,7 @@ class ProfilePage extends StatelessWidget {
                               fontWeight: FontWeight.w300,
                             ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-
-                          //Edit Profile Button
-                          // SizedBox(height: 10),  // Space between email and button
+                          const SizedBox(height: 10),
                           InkWell(
                             onTap: () {
                               // Handle your button tap here
@@ -106,9 +127,16 @@ class ProfilePage extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: CColors.overlayColor(
-                                    context), // Solid color for the button
+                                color: CColors.overlayColor(context),
                                 borderRadius: BorderRadius.circular(7),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.25),
+                                    spreadRadius: 0,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
                               ),
                               child: Text(
                                 "Edit Profile",
@@ -129,7 +157,7 @@ class ProfilePage extends StatelessWidget {
             ),
           ),
 
-          //BOTTOM Section
+          // BOTTOM Section
           Expanded(
             child: ListView(
               children: ListTile.divideTiles(
@@ -143,16 +171,38 @@ class ProfilePage extends StatelessWidget {
                       context, Icons.book_online, "My Booking", () {}),
                   _buildOptionRow(
                       context, Icons.privacy_tip, "Privacy Policy", () {}),
-                  _buildOptionRowWithSwitch(
-                    context,
-                    Icons.dark_mode,
-                    "Dark Mode",
-                    themeProvider.themeMode == ThemeMode.dark,
-                    (value) {
-                      themeProvider.setThemeMode(
-                          value ? ThemeMode.dark : ThemeMode.light);
-                    },
-                  ),
+
+                  //theme changer
+                  Padding(
+                    padding: EdgeInsets.all(12),
+                    child: ListTile(
+                      leading: Icon(Icons.brightness_4),
+                      title: Text("Theme Mode"),
+                      trailing: DropdownButton<ThemeMode>(
+                        value: themeProvider.themeMode,
+                        onChanged: (ThemeMode? newValue) {
+                          if (newValue != null) {
+                            themeProvider.setThemeMode(newValue);
+                          }
+                        },
+                        items: const [
+                          DropdownMenuItem(
+                            value: ThemeMode.system,
+                            child: Text("System Default"),
+                          ),
+                          DropdownMenuItem(
+                            value: ThemeMode.light,
+                            child: Text("Light"),
+                          ),
+                          DropdownMenuItem(
+                            value: ThemeMode.dark,
+                            child: Text("Dark"),
+                          ),
+                        ],
+                        underline: Container(), // Optional: to remove underline
+                      ),
+                    ),
+                  )
                 ],
               ).toList(),
             ),
@@ -178,26 +228,6 @@ class ProfilePage extends StatelessWidget {
         trailing: Icon(Icons.chevron_right,
             size: 24, color: CColors.textColor(context)),
         onTap: onTap,
-      ),
-    );
-  }
-
-  // for s\dark mode switch
-  Widget _buildOptionRowWithSwitch(BuildContext context, IconData icon,
-      String title, bool value, ValueChanged<bool> onChanged) {
-    return Padding(
-      padding: const EdgeInsets.all(10), 
-      child: ListTile(
-        leading: Icon(icon, color: CColors.textColor(context)),
-        title: Text(title, style: GoogleFonts.manrope(fontSize: 16)),
-        trailing: Switch(
-          value: value,
-          onChanged: onChanged,
-          activeColor: CColors.primaryColor(context),
-        ),
-        onTap: () {
-          onChanged(!value);
-        },
       ),
     );
   }
