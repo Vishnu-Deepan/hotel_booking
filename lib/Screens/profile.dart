@@ -14,7 +14,6 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var themeProvider = Provider.of<ThemeProvider>(context, listen: false);
 
     // Fetching screen width and height using MediaQuery
@@ -28,7 +27,7 @@ class ProfilePage extends StatelessWidget {
         title: Text(
           'Profile Page',
           style: GoogleFonts.dangrek(
-            color: CColors.cardColor(context),
+            color: Colors.white,
             fontWeight: FontWeight.w400,
             fontSize: 18,
           ),
@@ -76,7 +75,7 @@ class ProfilePage extends StatelessWidget {
                           Text(
                             "Vishnu Deepan P",
                             style: GoogleFonts.manrope(
-                              color: CColors.cardColor(context),
+                              color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
@@ -89,7 +88,7 @@ class ProfilePage extends StatelessWidget {
                           Text(
                             "vishnudeepanp@gmail.com",
                             style: GoogleFonts.manrope(
-                              color: CColors.cardColor(context),
+                              color: Colors.white,
                               fontSize: 15,
                               fontWeight: FontWeight.w300,
                             ),
@@ -148,15 +147,13 @@ class ProfilePage extends StatelessWidget {
                     context,
                     Icons.dark_mode,
                     "Dark Mode",
-                    themeProvider. == ThemeMode.dark,
-    (value) {
-    themeProvider.setThemeMode(value ? ThemeMode.dark : ThemeMode.light);
-    },
+                    themeProvider.themeMode == ThemeMode.dark,
+                    (value) {
+                      themeProvider.setThemeMode(
+                          value ? ThemeMode.dark : ThemeMode.light);
+                    },
                   ),
                 ],
-
-
-
               ).toList(),
             ),
           ),
@@ -168,9 +165,10 @@ class ProfilePage extends StatelessWidget {
   Widget _buildOptionRow(
       BuildContext context, IconData icon, String title, VoidCallback onTap) {
     return Container(
-      padding: EdgeInsets.all(10), // Adjust padding to change effective height
+      padding:
+          const EdgeInsets.all(10), // Adjust padding to change effective height
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
             vertical: 8, horizontal: 16), // Internal padding of ListTile
         leading: Icon(icon,
             size: 24,
@@ -184,20 +182,23 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  // for sark mode switch
+  // for s\dark mode switch
   Widget _buildOptionRowWithSwitch(BuildContext context, IconData icon,
       String title, bool value, ValueChanged<bool> onChanged) {
-    return ListTile(
-      leading: Icon(icon, color: CColors.textColor(context)),
-      title: Text(title, style: GoogleFonts.manrope(fontSize: 16)),
-      trailing: Switch(
-        value: value,
-        onChanged: onChanged,
-        activeColor: CColors.primaryColor(context),
+    return Padding(
+      padding: const EdgeInsets.all(10), 
+      child: ListTile(
+        leading: Icon(icon, color: CColors.textColor(context)),
+        title: Text(title, style: GoogleFonts.manrope(fontSize: 16)),
+        trailing: Switch(
+          value: value,
+          onChanged: onChanged,
+          activeColor: CColors.primaryColor(context),
+        ),
+        onTap: () {
+          onChanged(!value);
+        },
       ),
-      onTap: () {
-        onChanged(!value); // Toggle the switch state on row tap as well
-      },
     );
   }
 }
