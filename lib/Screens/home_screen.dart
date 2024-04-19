@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          CColors.primaryColor(context)!.withOpacity(0.6),
+                          CColors.primaryColor(context).withOpacity(0.6),
                           CColors.primaryColor(context)
                         ]),
                     color: CColors.primaryColor(context),
