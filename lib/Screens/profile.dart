@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotel_booking/Screens/edit_profile_page.dart';
 import 'package:provider/provider.dart';
 import '../themes/custom_colors.dart';
 import '../themes/provider.dart';
@@ -52,7 +53,7 @@ class ProfilePage extends StatelessWidget {
                   color: Colors.black.withOpacity(0.2),
                   spreadRadius: 1,
                   blurRadius: 10,
-                  offset: Offset(0, 3),
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
@@ -73,22 +74,21 @@ class ProfilePage extends StatelessWidget {
                           color: Colors.black.withOpacity(0.15),
                           blurRadius: 10,
                           spreadRadius: 2,
-                          offset: Offset(4, 0),
+                          offset: const Offset(4, 0),
                         ),
                       ],
-                      image: DecorationImage(
+                      image: const DecorationImage(
                         image: NetworkImage("https://i.pravatar.cc/56334846"),
                         fit: BoxFit.cover,
                       ),
-                      borderRadius: BorderRadius.circular(profileImageSize /
-                          2),
+                      borderRadius: BorderRadius.circular(profileImageSize / 2),
                       border: Border.all(
                         color: Colors.white,
                         width: 1.5,
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
 
@@ -122,7 +122,9 @@ class ProfilePage extends StatelessWidget {
                           const SizedBox(height: 10),
                           InkWell(
                             onTap: () {
-                              // Handle your button tap here
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const EditProfilePage(),
+                              ));
                             },
                             child: Container(
                               padding: const EdgeInsets.all(8),
@@ -134,7 +136,7 @@ class ProfilePage extends StatelessWidget {
                                     color: Colors.black.withOpacity(0.25),
                                     spreadRadius: 0,
                                     blurRadius: 4,
-                                    offset: Offset(0, 2),
+                                    offset: const Offset(0, 2),
                                   ),
                                 ],
                               ),
@@ -159,52 +161,79 @@ class ProfilePage extends StatelessWidget {
 
           // BOTTOM Section
           Expanded(
-            child: ListView(
-              children: ListTile.divideTiles(
-                context: context,
-                tiles: [
-                  _buildOptionRow(
-                      context, Icons.lock_outline, "Change Password", () {}),
-                  _buildOptionRow(
-                      context, Icons.payment, "Payment Method", () {}),
-                  _buildOptionRow(
-                      context, Icons.book_online, "My Booking", () {}),
-                  _buildOptionRow(
-                      context, Icons.privacy_tip, "Privacy Policy", () {}),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListView(
+                children: ListTile.divideTiles(
+                  context: context,
+                  tiles: [
+                    _buildOptionRow(
+                        context, Icons.lock_outline, "Change Password", () {}),
+                    _buildOptionRow(
+                        context, Icons.payment, "Payment Method", () {}),
+                    _buildOptionRow(
+                        context, Icons.book_online, "My Booking", () {}),
+                    _buildOptionRow(
+                        context, Icons.privacy_tip, "Privacy Policy", () {}),
 
-                  //theme changer
-                  Padding(
-                    padding: EdgeInsets.all(12),
-                    child: ListTile(
-                      leading: Icon(Icons.brightness_4),
-                      title: Text("Theme Mode"),
-                      trailing: DropdownButton<ThemeMode>(
-                        value: themeProvider.themeMode,
-                        onChanged: (ThemeMode? newValue) {
-                          if (newValue != null) {
-                            themeProvider.setThemeMode(newValue);
-                          }
-                        },
-                        items: const [
-                          DropdownMenuItem(
-                            value: ThemeMode.system,
-                            child: Text("System Default"),
-                          ),
-                          DropdownMenuItem(
-                            value: ThemeMode.light,
-                            child: Text("Light"),
-                          ),
-                          DropdownMenuItem(
-                            value: ThemeMode.dark,
-                            child: Text("Dark"),
-                          ),
-                        ],
-                        underline: Container(), // Optional: to remove underline
+                    //theme changer
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: ListTile(
+                        leading: const Icon(Icons.brightness_4),
+                        title: const Text("Theme Mode"),
+                        trailing: DropdownButton<ThemeMode>(
+                          value: themeProvider.themeMode,
+                          onChanged: (ThemeMode? newValue) {
+                            if (newValue != null) {
+                              themeProvider.setThemeMode(newValue);
+                            }
+                          },
+                          items: const [
+                            DropdownMenuItem(
+                              value: ThemeMode.system,
+                              child: Text("System Default"),
+                            ),
+                            DropdownMenuItem(
+                              value: ThemeMode.light,
+                              child: Text("Light"),
+                            ),
+                            DropdownMenuItem(
+                              value: ThemeMode.dark,
+                              child: Text("Dark"),
+                            ),
+                          ],
+                          underline:
+                              Container(), // Optional: to remove underline
+                        ),
                       ),
                     ),
-                  )
-                ],
-              ).toList(),
+
+                    // Logout button
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: ListTile(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              12), // Adjust the border radius as needed
+                        ),
+                        tileColor: CColors.primaryColor(context),
+                        leading: const Icon(
+                          Icons.logout,
+                          color: Colors.white,
+                        ),
+                        title: const Text(
+                          "Logout",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onTap: _handleLogout,
+                      ),
+                    ),
+                  ],
+                ).toList(),
+              ),
             ),
           ),
         ],
@@ -230,5 +259,10 @@ class ProfilePage extends StatelessWidget {
         onTap: onTap,
       ),
     );
+  }
+
+  void _handleLogout() {
+    // Implement logout functionality here
+    // For example, you can navigate to the login page and clear any user session data
   }
 }

@@ -30,9 +30,8 @@ environment:
 dependencies:
   flutter_rating_bar:
   provider:
-  flutter_staggered_grid_view:
   photo_view:
-  dropdown_button2:
+  intl:
   google_fonts:
   flutter:
     sdk: flutter
