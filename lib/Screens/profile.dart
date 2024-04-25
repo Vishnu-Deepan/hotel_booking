@@ -168,11 +168,11 @@ class ProfilePage extends StatelessWidget {
                   context: context,
                   tiles: [
                     _buildOptionRow(
-                        context, Icons.lock_outline, "Change Password", () {}),
+                        context, Icons.bookmark, "Favorites", () {}),
                     _buildOptionRow(
                         context, Icons.payment, "Payment Method", () {}),
                     _buildOptionRow(
-                        context, Icons.book_online, "My Booking", () {}),
+                        context, Icons.lock_outline, "Change Password", () {}),
                     _buildOptionRow(
                         context, Icons.privacy_tip, "Privacy Policy", () {}),
 

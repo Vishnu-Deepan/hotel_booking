@@ -312,6 +312,7 @@ class EditProfilePage extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   // Handle update profile
+                  _showUpdateConfirmationDialog(context); 
                 },
                 child: Container(
                   height: 60,
@@ -341,4 +342,63 @@ class EditProfilePage extends StatelessWidget {
 
 
 
+}
+
+void _showUpdateConfirmationDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        title: Text(
+          'Confirmation',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: CColors.primaryColor(context),
+          ),
+        ),
+        content: Text(
+          'Are you sure you want to update your profile?',
+          style: TextStyle(
+            fontSize: 16,
+            color: CColors.textColor(context),
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _updateProfile(context); // Call function to update profile
+            },
+            child: Text(
+              'Yes',
+              style: TextStyle(
+                fontSize: 16,
+                color: CColors.primaryColor(context),
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+            child: Text(
+              'No',
+              style: TextStyle(
+                fontSize: 16,
+                color: CColors.textColor(context),
+              ),
+            ),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void _updateProfile(context) {
+  Navigator.of(context).pop();
 }

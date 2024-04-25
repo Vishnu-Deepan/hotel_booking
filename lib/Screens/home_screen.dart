@@ -3,6 +3,7 @@ import 'package:hotel_booking/Screens/profile.dart';
 import 'package:hotel_booking/themes/custom_colors.dart';
 import 'package:hotel_booking/utils/hotel_card_small.dart';
 import '../utils/hotel_card_big.dart';
+import 'bookings_screen.dart';
 import 'search.dart';
 
 class HomePage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined), label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.bookmark_add_outlined), label: "Favorites"),
+              icon: Icon(Icons.calendar_month_sharp), label: "My Bookings"),
           BottomNavigationBarItem(
               icon: Icon(Icons.person_outline_sharp), label: "Profile"),
         ],
@@ -286,7 +287,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          const Center(child: Text('Favorites Page')),
+          const MyBookingsPage(),
           const ProfilePage(),
         ],
       ),
