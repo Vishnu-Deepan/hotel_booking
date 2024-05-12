@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel_booking/Screens/all_images_screen.dart';
 import 'package:hotel_booking/Screens/reviews_page.dart';
@@ -172,8 +173,7 @@ class _HomeDetailPageState extends State<HomeDetailPage> {
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    itemCount:
-                        5,
+                    itemCount: 5,
                     itemBuilder: (context, index) {
                       if (index < 4) {
                         // Display the first four images
@@ -375,23 +375,28 @@ class _HomeDetailPageState extends State<HomeDetailPage> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  // Show loading indicator
                   showDialog(
                     context: context,
                     barrierDismissible: false,
-                    builder: (context) => Center(child: CircularProgressIndicator()),
+                    builder: (context) => Center(
+                      child: SpinKitPulsingGrid(
+                        color: Colors.blue,
+                        size: 100.0,
+                      ),
+                    ),
                   );
 
-                  await Future.delayed(Duration(seconds: 1));
-
+                  //simulate 1.5sec delay
+                  await Future.delayed(Duration(milliseconds: 1000));
                   // Hide the loading indicator
                   Navigator.of(context).pop();
+
 
                   // Navigate to the second page
                   Navigator.push(
                     context,
                     PageTransition(
-                      type: PageTransitionType.leftToRight,
+                      type: PageTransitionType.bottomToTop,
                       child: BookingOptionsScreen(
                         hotelName: 'Taj Coromandal',
                         hotelCity: 'Chennai',
@@ -399,14 +404,13 @@ class _HomeDetailPageState extends State<HomeDetailPage> {
                     ),
                   );
                 },
-
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor:
                       CColors.primaryColor(context), // Button text color
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
-                        8), // Squared edges with a slight rounding
+                        8),
                   ),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -414,7 +418,9 @@ class _HomeDetailPageState extends State<HomeDetailPage> {
                 child: Text(
                   'Book Now',
                   style: GoogleFonts.lato(
-                      fontWeight: FontWeight.bold, fontSize: 18),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ],

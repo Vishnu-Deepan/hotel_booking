@@ -30,6 +30,7 @@ environment:
 dependencies:
   page_transition:
   animation_list:
+  flutter_spinkit:
   animated_segment:
   animations:
   flutter_rating_bar:
@@ -101,4 +102,5 @@ flutter:
   assets:
     - assets/logo.png
     - assets/images/
+    - assets/images/loading.gif
 

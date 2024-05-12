@@ -3,6 +3,8 @@
   import 'package:scrollable_clean_calendar/scrollable_clean_calendar.dart';
   import 'package:scrollable_clean_calendar/utils/enums.dart';
 
+import '../themes/custom_colors.dart';
+
   class BookingOptionsScreen extends StatefulWidget {
     final String hotelName;
     final String hotelCity;
@@ -32,42 +34,61 @@
 
     // Fixed Bottom Bar Widget
     Widget _buildFixedBottomBar(BuildContext context) {
-      const double pricePerNight = 2999.99; // Example price
-      const String currency = '₹'; // Indian Rupee symbol
 
       return SafeArea(
         child: BottomAppBar(
-          color: Colors.blue, // Background color
+          color: CColors.cardColor(context),
           child: Container(
             height: 60,
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                RichText(
-                  text: TextSpan(
+                Expanded(child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start, // Adjust alignment as needed
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "From",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                            color: CColors.textColor(context),
+                          ),
+                        ),
+                        Text("31/05/2024",style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: CColors.textColor(context),
+                        ),),
+
+                        SizedBox(width: 10,),
+                      ],
+                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TextSpan(
-                        text: currency,
+                      Text(
+                        "To",
                         style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: CColors.textColor(context),
+                        ),
                       ),
-                      TextSpan(
-                        text: '${pricePerNight.toStringAsFixed(2)} ',
-                        style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      ),
-                      TextSpan(
-                        text: '/ night',
-                        style: TextStyle(fontSize: 18, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                ),
+                      Text("04/06/2024",style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: CColors.textColor(context),
+                      ),),
+
+                      SizedBox(width: 10,),
+                    ],),
+
+                  ],
+                ),),
                 ElevatedButton(
                   onPressed: () {
                     // Navigate to booking options screen
@@ -109,7 +130,7 @@
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 8.0),
                   child: Row(
                     children: [
                       IconButton(
@@ -124,7 +145,6 @@
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
                         ),
                       ),
                     ],
@@ -132,12 +152,13 @@
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(6.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: ScrollableCleanCalendar(
+                            showWeekdays: true,
                             calendarController: _calendarController,
                             layout: Layout.BEAUTY,
                             calendarCrossAxisSpacing: 0,
