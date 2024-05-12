@@ -5,6 +5,8 @@ import 'package:hotel_booking/Screens/all_images_screen.dart';
 import 'package:hotel_booking/Screens/reviews_page.dart';
 import 'package:hotel_booking/themes/custom_colors.dart';
 
+import 'booking_options.dart';
+
 class HomeDetailPage extends StatefulWidget {
   const HomeDetailPage({super.key});
 
@@ -372,7 +374,14 @@ class _HomeDetailPageState extends State<HomeDetailPage> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push<void>(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => BookingOptions(hotelName:'Taj Coromandal',hotelCity:"Chennai"),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor:

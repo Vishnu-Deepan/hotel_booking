@@ -33,6 +33,7 @@ dependencies:
   photo_view:
   intl:
   google_fonts:
+  scrollable_clean_calendar:
   flutter:
     sdk: flutter
 
