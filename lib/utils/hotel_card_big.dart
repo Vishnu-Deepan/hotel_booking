@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../Screens/home_detail_page.dart';
 import '../themes/custom_colors.dart';
 
 class HotelCardBig extends StatelessWidget {
@@ -26,7 +27,17 @@ class HotelCardBig extends StatelessWidget {
     const double cardWidth = 230; // Fixed width
     const double cardHeight = 160; // Fixed height
 
-    return Card(
+    return GestureDetector(
+        onTap: () {
+      // Navigate to the HomeDetailPage when the item is clicked
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeDetailPage(),
+        ),
+      );
+    },
+    child: Card(
       color: CColors.cardColor(context),
       elevation: 0.4,
       shape: RoundedRectangleBorder(
@@ -90,6 +101,7 @@ class HotelCardBig extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:animation_list/animation_list.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_booking/themes/custom_colors.dart';
 import 'package:hotel_booking/utils/bottom_modal.dart';
@@ -232,31 +233,28 @@ class _SearchResultPageState extends State<SearchResultPage> {
             ),
             const SizedBox(height: 9),
             Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: List.generate(
-                    hotels.length,
-                        (index) {
-                      var hotel = hotels[index];
-                      return Padding(
-                        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-                        child: ResultCard(
-                          imageUrl: hotel['imageUrl'],
-                          title: hotel['title'],
-                          location: hotel['location'],
-                          price: hotel['price'],
-                          rating: hotel['rating'],
-                          totalRatings: hotel['totalRatings'],
-                        ),
-                      );
-                    },
-                  ),
-                ),
+              child: AnimationList(
+                duration: 1000,
+                children: List.generate(
+                  hotels.length,
+                      (index) {
+                    var hotel = hotels[index];
+                    return Padding(
+                      padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+                      child: ResultCard(
+                        imageUrl: hotel['imageUrl'],
+                        title: hotel['title'],
+                        location: hotel['location'],
+                        price: hotel['price'],
+                        rating: hotel['rating'],
+                        totalRatings: hotel['totalRatings'],
+                      ),
+                    );
+                  },
+                ).toList(),
               ),
             ),
+
           ],
         ),
       ),

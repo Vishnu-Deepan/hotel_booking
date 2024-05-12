@@ -5,6 +5,7 @@ import 'package:hotel_booking/utils/hotel_card_small.dart';
 import '../utils/hotel_card_big.dart';
 import 'bookings_screen.dart';
 import 'search.dart';
+import 'search_result.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -151,21 +152,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
 
-                            // Filter Icon
 
-                            // Container(
-                            //   decoration: const BoxDecoration(
-                            //     color: Colors.white,
-                            //     borderRadius:
-                            //         BorderRadius.all(Radius.circular(16)),
-                            //   ),
-                            //   width: screenWidth * 0.17,
-                            //   height: screenHeight * 0.08,
-                            //   child: Icon(
-                            //     Icons.filter_list,
-                            //     color: CColors.overlayColor(context),
-                            //   ),
-                            // ),
                           ],
                         ),
                       ],
@@ -176,11 +163,12 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                   height: 10,
                 ),
+
                 // Image scroll section
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: List.generate(5, (index) => imageTile(index)),
+                    children: List.generate(5, (index) => imageTile(context,index)),
                   ),
                 ),
 
@@ -294,8 +282,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Image Tile Widget for cities
-  Widget imageTile(int index) {
+  Widget imageTile(BuildContext context, int index) {
     final List<String> assetPaths = [
       'assets/images/image1.jpg',
       'assets/images/image2.jpg',
@@ -314,24 +301,37 @@ class _HomePageState extends State<HomePage> {
 
     return Padding(
       padding: const EdgeInsets.all(13),
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: Image.asset(
-              assetPaths[index],
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover,
+      child: GestureDetector(
+        onTap: () {
+          String cityName = imageTitles[index];
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchResultPage(cityName: cityName),
             ),
-          ),
-          const SizedBox(height: 8), // Space between image and title
-          Text(
-            imageTitles[index],
-            style: const TextStyle(fontSize: 16),
-          ),
-        ],
+          );
+        },
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Image.asset(
+                assetPaths[index],
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              imageTitles[index],
+              style: const TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
       ),
     );
   }
+
+
 }

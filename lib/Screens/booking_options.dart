@@ -1,89 +1,157 @@
-import 'package:flutter/material.dart';
-import 'package:scrollable_clean_calendar/controllers/clean_calendar_controller.dart';
-import 'package:scrollable_clean_calendar/scrollable_clean_calendar.dart';
-import 'package:scrollable_clean_calendar/utils/enums.dart';
+  import 'package:flutter/material.dart';
+  import 'package:scrollable_clean_calendar/controllers/clean_calendar_controller.dart';
+  import 'package:scrollable_clean_calendar/scrollable_clean_calendar.dart';
+  import 'package:scrollable_clean_calendar/utils/enums.dart';
 
-class BookingOptions extends StatefulWidget {
-  final String hotelName;
-  final String hotelCity;
+  class BookingOptionsScreen extends StatefulWidget {
+    final String hotelName;
+    final String hotelCity;
 
-  BookingOptions({required this.hotelName, required this.hotelCity});
+    BookingOptionsScreen({required this.hotelName, required this.hotelCity});
 
-  @override
-  _BookingOptionsState createState() => _BookingOptionsState();
-}
-
-class _BookingOptionsState extends State<BookingOptions> {
-  late CleanCalendarController _calendarController;
-
-  @override
-  void initState() {
-    super.initState();
-    _calendarController = CleanCalendarController(
-      onRangeSelected: _onRangeSelected,
-      minDate: DateTime.now(),
-      maxDate: DateTime.now().add(const Duration(days: 365)),
-    );
+    @override
+    _BookingOptionsScreenState createState() => _BookingOptionsScreenState();
   }
 
-  void _onRangeSelected(DateTime firstDate, DateTime? secondDate) {
-    print('Selected range: $firstDate - $secondDate');
-  }
+  class _BookingOptionsScreenState extends State<BookingOptionsScreen> {
+    late CleanCalendarController _calendarController;
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Custom App Bar with Back Button
-            Container(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-              color: Colors.blue, // Customize the color as needed
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    @override
+    void initState() {
+      super.initState();
+      _calendarController = CleanCalendarController(
+        onRangeSelected: _onRangeSelected,
+        minDate: DateTime.now(),
+        maxDate: DateTime.now().add(const Duration(days: 365)),
+      );
+    }
+
+    void _onRangeSelected(DateTime firstDate, DateTime? secondDate) {
+      print('Selected range: $firstDate - $secondDate');
+    }
+
+    // Fixed Bottom Bar Widget
+    Widget _buildFixedBottomBar(BuildContext context) {
+      const double pricePerNight = 2999.99; // Example price
+      const String currency = '₹'; // Indian Rupee symbol
+
+      return SafeArea(
+        child: BottomAppBar(
+          color: Colors.blue, // Background color
+          child: Container(
+            height: 60,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                RichText(
+                  text: TextSpan(
                     children: [
-                      Text(widget.hotelName, style: TextStyle(fontSize: 16.0, color: Colors.white)),
-                      Text(widget.hotelCity, style: TextStyle(fontSize: 14.0, color: Colors.white)),
+                      TextSpan(
+                        text: currency,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      TextSpan(
+                        text: '${pricePerNight.toStringAsFixed(2)} ',
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      TextSpan(
+                        text: '/ night',
+                        style: TextStyle(fontSize: 18, color: Colors.grey),
+                      ),
                     ],
                   ),
-                ],
-              ),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    // Navigate to booking options screen
+                    Navigator.push<void>(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => BookingOptionsScreen(
+                            hotelName: 'Taj Coromandal', hotelCity: "Chennai"),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.green, // Button background color
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                  ),
+                  child: Text(
+                    'Book Now',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Select your preferred dates:',
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height / 1.5,
-              child: ScrollableCleanCalendar(
-                calendarController: _calendarController,
-                layout: Layout.BEAUTY,
-                calendarCrossAxisSpacing: 0,
-              ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Perform booking or navigate to the next step
-              },
-              child: Text('Continue'),
-            ),
-          ],
+          ),
         ),
-      ),
-    );
+      );
+    }
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        body: Container(
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      SizedBox(width: 8.0),
+                      Text(
+                        "Select Booking Dates",
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: ScrollableCleanCalendar(
+                            calendarController: _calendarController,
+                            layout: Layout.BEAUTY,
+                            calendarCrossAxisSpacing: 0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: _buildFixedBottomBar(context), // Add Fixed Bottom Bar
+      );
+    }
   }
-}

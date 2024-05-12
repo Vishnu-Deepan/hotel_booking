@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../Screens/home_detail_page.dart';
 import '../themes/custom_colors.dart';
 
 class HotelCardSmall extends StatelessWidget {
@@ -23,7 +24,17 @@ class HotelCardSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return GestureDetector(
+        onTap: () {
+      // Navigate to the HomeDetailPage when the item is clicked
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeDetailPage(),
+        ),
+      );
+    },
+    child: Card(
       color: CColors.cardColor(context),
       elevation: 0.4,
       margin: const EdgeInsets.all(8),
@@ -104,6 +115,7 @@ class HotelCardSmall extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel_booking/Screens/all_images_screen.dart';
 import 'package:hotel_booking/Screens/reviews_page.dart';
 import 'package:hotel_booking/themes/custom_colors.dart';
-
+import 'package:page_transition/page_transition.dart';
 import 'booking_options.dart';
 
 class HomeDetailPage extends StatefulWidget {
@@ -173,7 +173,7 @@ class _HomeDetailPageState extends State<HomeDetailPage> {
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     itemCount:
-                        5, // Total count includes 4 images + 1 enhanced "See All" image
+                        5,
                     itemBuilder: (context, index) {
                       if (index < 4) {
                         // Display the first four images
@@ -374,14 +374,32 @@ class _HomeDetailPageState extends State<HomeDetailPage> {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push<void>(
+                onPressed: () async {
+                  // Show loading indicator
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => Center(child: CircularProgressIndicator()),
+                  );
+
+                  await Future.delayed(Duration(seconds: 1));
+
+                  // Hide the loading indicator
+                  Navigator.of(context).pop();
+
+                  // Navigate to the second page
+                  Navigator.push(
                     context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => BookingOptions(hotelName:'Taj Coromandal',hotelCity:"Chennai"),
+                    PageTransition(
+                      type: PageTransitionType.leftToRight,
+                      child: BookingOptionsScreen(
+                        hotelName: 'Taj Coromandal',
+                        hotelCity: 'Chennai',
+                      ),
                     ),
                   );
                 },
+
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor:
